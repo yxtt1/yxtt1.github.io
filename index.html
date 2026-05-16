@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏天堂 | 精品游戏研发工作室</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:Arial,sans-serif;overflow-x:hidden;background:#05071a;}
+        canvas{position:fixed;top:0;left:0;z-index:1;pointer-events:none;}
+
+        /* 开场启动全屏页 */
+        .launch-page{
+            width:100vw;height:100vh;
+            position:fixed;top:0;left:0;
+            background:linear-gradient(135deg,#060b28,#101842);
+            z-index:9999;
+            display:flex;flex-direction:column;
+            align-items:center;justify-content:center;
+            transition:all 0.9s cubic-bezier(0.17,0.67,0.83,0.67);
+        }
+        .launch-page.close{
+            transform:scale(0) skew(15deg,10deg);
+            opacity:0;
+        }
+        .launch-title{
+            font-size:72px;color:#ffd320;
+            text-shadow:0 0 25px #ff9500,0 0 50px #ff6600;
+            letter-spacing:8px;margin-bottom:60px;
+        }
+        .enter-btn{
+            padding:18px 65px;font-size:24px;
+            border:2px solid #ffd320;
+            background:transparent;color:#ffd320;
+            border-radius:50px;cursor:pointer;
+            transition:0.4s all ease;
+        }
+        .enter-btn:hover{
+            background:#ffd320;color:#000;
+            box-shadow:0 0 30px #ffd320;
+        }
+
+        /* 主网站页面 */
+        .main-wrap{display:none;position:relative;z-index:10;}
+        .head-box{
+            text-align:center;padding:60px 20px;
+        }
+        .company-top{
+            font-size:50px;color:#ffd320;
+            margin-bottom:15px;
+        }
+        .company-desc{
+            font-size:19px;color:#c2c8ff;max-width:900px;margin:0 auto;
+        }
+
+        /* 导航分类栏 */
+        .nav-bar{
+            display:flex;justify-content:center;gap:30px;
+            padding:25px 0;background:rgba(255,255,255,0.05);
+            margin:20px auto;max-width:1100px;border-radius:12px;
+        }
+        .nav-item{
+            color:#fff;font-size:18px;padding:8px 20px;
+            cursor:pointer;border-radius:6px;transition:0.3s;
+        }
+        .nav-item:hover{background:#ffd320;color:#000;}
+
+        /* 内容板块通用样式 */
+        .content-box{
+            max-width:1100px;margin:50px auto;padding:30px;
+            background:rgba(255,255,255,0.06);
+            border-radius:16px;color:#e8ebff;
+        }
+        .block-title{
+            font-size:32px;color:#ffd320;margin-bottom:25px;border-left:5px solid #ffd320;padding-left:15px;
+        }
+
+        /* 游戏介绍卡片 */
+        .game-card{
+            padding:25px;border-radius:12px;background:rgba(255,255,255,0.08);
+            margin-top:20px;
+        }
+        .game-name{font-size:26px;color:#ff9f29;margin-bottom:12px;}
+        .game-text{line-height:2;font-size:17px;}
+    </style>
+</head>
+<body>
+    <!-- 动态粒子画布 -->
+    <canvas id="partCanvas"></canvas>
+
+    <!-- 开场收缩页面 -->
+    <div class="launch-page" id="launchPage">
+        <h1 class="launch-title">游戏天堂</h1>
+        <button class="enter-btn" id="goMain">即刻进入</button>
+    </div>
+
+    <!-- 正式官网主页 -->
+    <div class="main-wrap" id="mainSite">
+        <div class="head-box">
+            <h1 class="company-top">游戏天堂游戏创意工作室</h1>
+            <p class="company-desc">专注热血动作游戏、模拟经营类游戏研发，用心打造沉浸式趣味游戏世界</p>
+        </div>
+
+        <!-- 网站分类导航 -->
+        <div class="nav-bar">
+            <div class="nav-item">公司简介</div>
+            <div class="nav-item">旗下游戏</div>
+            <div class="nav-item">研发方向</div>
+            <div class="nav-item">合作咨询</div>
+        </div>
+
+        <!-- 公司介绍板块 -->
+        <div class="content-box">
+            <h2 class="block-title">企业概况</h2>
+            <p style="font-size:17px;line-height:2;color:#ddd;">
+                游戏天堂是一家主打多元化趣味游戏制作的创意团队，主力研发热血动作闯关、自由模拟经营两大类型游戏。
+                团队注重游戏自由玩法与真实沉浸感，拒绝死板固定流程，主打高自由度、高可玩性游戏内容，
+                致力于让每一位玩家都能在游戏里体验不一样的趣味人生。
+            </p>
+        </div>
+
+        <!-- 旗下游戏板块 -->
+        <div class="content-box">
+            <h2 class="block-title">自研精品游戏</h2>
+            <div class="game-card">
+                <h3 class="game-name">商业帝国</h3>
+                <div class="game-text">
+                    一款超高自由度沉浸式商业模拟经营大作！开局一无所有从零起步，开启你的逆袭暴富之路。
+                    玩家既可以选择入职各行各业打工积累原始资金，稳步攒钱规划未来；也能直接勇敢创业，自选商铺品类、经营赛道开启创业生涯。
+                    海量商业赛道随心挑选，小到街边实体门店，大到集团产业布局，玩法自由无限制。
+                    合理规划资金、拓展人脉、布局市场，一步步从小商贩逆袭成为商界大佬，亲手搭建属于你的庞大商业版图，打造独一无二的顶级商业帝国！
+                </div>
+            </div>
+        </div>
+
+        <!-- 研发方向板块 -->
+        <div class="content-box">
+            <h2 class="block-title">未来研发方向</h2>
+            <p style="font-size:17px;line-height:2;color:#ddd;">
+                后续主力深耕<span style="color:#ffd320;">硬核动作竞技、野外热血冒险</span>类游戏，
+                侧重流畅打斗手感、超大开放地图、真实物理交互，打造刺激爽快的动作游戏体验。
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 页面剧烈收缩跳转
+        const launch = document.getElementById('launchPage');
+        const mainSite = document.getElementById('mainSite');
+        document.getElementById('goMain').onclick = function(){
+            launch.classList.add('close');
+            setTimeout(()=>{
+                launch.style.display = 'none';
+                mainSite.style.display = 'block';
+            },900);
+        }
+
+        // 随机漂浮消失粒子特效
+        const canvas = document.getElementById('partCanvas');
+        const ctx = canvas.getContext('2d');
+        let w = canvas.width = innerWidth;
+        let h = canvas.height = innerHeight;
+        let particles = [];
+
+        window.addEventListener('resize',()=>{
+            w = canvas.width = innerWidth;
+            h = canvas.height = innerHeight;
+        });
+
+        class Particle{
+            constructor(){
+                this.x = Math.random()*w;
+                this.y = Math.random()*h;
+                this.r = Math.random()*3+1;
+                this.opacity = Math.random();
+                this.speedX = (Math.random()-0.5)*1;
+                this.speedY = (Math.random()-0.5)*1;
+            }
+            update(){
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.opacity += Math.random()>0.5 ? -0.015 : 0.015;
+                if(this.opacity<=0||this.opacity>=1) this.opacity = Math.random();
+                if(this.x<0||this.x>w||this.y<0||this.y>h) this.reset();
+            }
+            reset(){
+                this.x = Math.random()*w;
+                this.y = Math.random()*h;
+            }
+            draw(){
+                ctx.beginPath();
+                ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+                ctx.fillStyle = `rgba(255,211,32,${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function init(){
+            for(let i=0;i<=120;i++) particles.push(new Particle());
+        }
+        function animate(){
+            ctx.clearRect(0,0,w,h);
+            for(let p of particles){
+                p.update();
+                p.draw();
+            }
+            requestAnimationFrame(animate);
+        }
+        init();
+        animate();
+    </script>
+</body>
+</html>
